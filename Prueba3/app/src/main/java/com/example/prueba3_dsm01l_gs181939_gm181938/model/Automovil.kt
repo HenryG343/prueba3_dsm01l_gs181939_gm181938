@@ -37,17 +37,55 @@ class Automovil  (context: Context){
                         + COL_NUMEROCHASIS + " varchar(45) NOT NULL,"
                         + COL_NUMEROMOTOR + " varchar(45) NOT NULL,"
                         + COL_NUMEROASIENTOS + " integer NOT NULL,"
-                        + COL_ANIO + " year NOT NULL,"
-                        + COL_CAPACIDADASIENTOS + " integer NOT NULL,"
+                        + COL_ANIO + " integer NOT NULL,"
                         + COL_PRECIO + " decimal(10,2) NOT NULL,"
-                        + COL_URLIMG + " varchar(45) NOT NULL,"
-                        + COL_DES + " varchar(45) NOT NULL,"
-                        + COL_IDMARCAS + " integer NOT NULL,"
-                        + COL_IDTIPOAUTO + " integer NOT NULL,"
-                        + COL_IDCOLORES + " integer NOT NULL,"
-                        + "FOREIGN KEY(idcolores) REFERENCES colores(idcolores),"
-                        + "FOREIGN KEY(idtipoautomovil) REFERENCES tipo_automovil(idtipoautomovil),"
-                        + "FOREIGN KEY(idmarcas) REFERENCES marcas(idmarcas));"
+                        + COL_DES + " varchar(45) NOT NULL"
                 )
     }
+    fun generarContentValues(modelo: String?, numerovin: String?, numerochasis: String?, numeromotor: String?, asientos: Int?, anio: Int?, precio: Double?, descripcion: String? ): ContentValues? {
+        val valores = ContentValues()
+        valores.put(COL_MODELO, modelo)
+        valores.put(COL_NUMEROVIN, numerovin)
+        valores.put(COL_NUMEROCHASIS, numerochasis)
+        valores.put(COL_NUMEROMOTOR, numeromotor)
+        valores.put(COL_NUMEROASIENTOS, asientos)
+        valores.put(COL_ANIO, anio)
+        valores.put(COL_PRECIO, precio)
+        valores.put(COL_DES, descripcion)
+        return valores
+    }
+
+    //Agregando un nuevo automovil
+    fun addNewUser(modelo: String?, numerovin: String?, numerochasis: String?, numeromotor: String?, asientos: Int?, anio: Int?, precio: Double?, descripcion: String?){
+        db!!.insert(
+            Automovil.TABLE_NAME_AUTO,
+            null,
+            generarContentValues(modelo,numerovin,numerochasis,numeromotor,asientos,anio,precio,descripcion)
+        )
+    }
+
+    //Eliminar un automovil
+    fun deleteuser(id: Int){
+        db!!.delete(TABLE_NAME_AUTO, "$COL_ID=?", arrayOf(id.toString()))
+    }
+
+    //Modificar registro
+    fun updateRegistro(
+        id: Int, modelo: String?, numerovin: String?,numerochasis: String?,numeromotor: String?, asientos: Int,anio: Int,precio: Double,descripcion: String?
+    ) {
+        db!!.update(
+            TABLE_NAME_AUTO, generarContentValues(modelo,numerovin,numerochasis,numeromotor,asientos,anio,precio,descripcion),
+            "$COL_ID=?", arrayOf(id.toString())
+        )
+    }
+
+    //Mostrar un registro particular
+    fun searchProducto(id: Int): Cursor?{
+        val columns = arrayOf(COL_ID, COL_MODELO, COL_NUMEROVIN, COL_NUMEROCHASIS, COL_NUMEROCHASIS,
+            COL_NUMEROASIENTOS, COL_ANIO, COL_PRECIO, COL_DES)
+        return db!!.query(
+            TABLE_NAME_AUTO, columns,"$COL_ID=?", arrayOf(id.toString()), null,null,null
+        )
+    }
+
 }

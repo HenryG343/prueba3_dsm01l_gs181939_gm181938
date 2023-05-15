@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                     nombre,
                     contra,
                 )
-                val i = Intent(this@MainActivity,TipoMenu::class.java)
+                val i = Intent(this@MainActivity,Menu::class.java)
                 startActivity(i)
             }
             if (view==btnLogin){
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                     Toast.makeText(this, "Bienvenido",
                         Toast.LENGTH_LONG)
                         .show()
-                    val i = Intent(this@MainActivity,TipoMenu::class.java)
+                    val i = Intent(this@MainActivity,Menu::class.java)
                     startActivity(i)
                 }else{
                     Toast.makeText(this, "No se encontro al usuario",
