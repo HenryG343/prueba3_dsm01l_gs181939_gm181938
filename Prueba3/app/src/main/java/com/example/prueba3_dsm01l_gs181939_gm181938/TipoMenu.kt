@@ -54,7 +54,7 @@ class TipoMenu : AppCompatActivity() , View.OnClickListener{
                     managerTipo!!.addNewUser(
                         descripcion
                     )
-                    Toast.makeText(this, "Color agregado",
+                    Toast.makeText(this, "Tipo agregado",
                         Toast.LENGTH_LONG).show()
                 }
             } else if (view === btnActualizar) {
@@ -63,14 +63,14 @@ class TipoMenu : AppCompatActivity() , View.OnClickListener{
                         idcolores.toInt(),
                         descripcion,
                     )
-                    Toast.makeText(this, "Color actualizado",
+                    Toast.makeText(this, "Tipo actualizado",
                         Toast.LENGTH_LONG).show()
                 }
             } else if (view === btnEliminar) {
                 if (vericarFormulario("eliminar")) {
                     // manager.eliminar(1);
                     managerTipo!!.deleteUser(idcolores.toInt())
-                    Toast.makeText(this, "Color eliminado",
+                    Toast.makeText(this, "Tipo eliminado",
                         Toast.LENGTH_LONG).show()
                 }
             } else if (view === btnBuscar) {

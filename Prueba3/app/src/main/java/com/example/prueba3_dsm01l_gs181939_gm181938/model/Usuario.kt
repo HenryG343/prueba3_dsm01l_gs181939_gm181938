@@ -79,7 +79,7 @@ class Usuario(context: Context) {
         )
         return db!!.query(
             Usuario.TABLE_NAME_USERS, columns,
-            "${Usuario.COL_NOMBRE}=? AND ${Usuario.COL_CONTRA}=?", arrayOf(nombre,contra), null, null, null
+            "${Usuario.COL_USER}=? AND ${Usuario.COL_CONTRA}=?", arrayOf(nombre,contra), null, null, null
         )
     }
     // Eliminar un registro

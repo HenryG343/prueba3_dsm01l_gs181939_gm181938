@@ -1,10 +1,13 @@
 package com.example.prueba3_dsm01l_gs181939_gm181938
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -47,25 +50,33 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         val contra: String = txtContra!!.text.toString().trim()
         if (db != null) {
             if (view==btnRegistro){
-                managerUsuario!!.addNewUser(
-                    nombre,
-                    nombre,
-                    nombre,
-                    nombre,
-                    nombre,
-                    contra,
-                )
-                val i = Intent(this@MainActivity,Menu::class.java)
+                val i = Intent(this@MainActivity,Registro::class.java)
                 startActivity(i)
             }
             if (view==btnLogin){
                 cursor = managerUsuario!!.loginUser(nombre,contra)
                 if (cursor != null && cursor!!.count>0) {
+                    cursor!!.moveToFirst()
+                    val id = cursor!!.getString(0)
+                    val nombre = cursor!!.getString(1)
+                    val tipo = cursor!!.getString(5)
+                    val preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE)
+                    val editor : SharedPreferences.Editor = preferences.edit()
+                    editor.putString("id",id)
+                    editor.putString("nombre",nombre)
+                    editor.putString("tipo",tipo)
+                    editor.commit()
+                    if(tipo == "admin"){
+                        val i = Intent(this@MainActivity,Menu::class.java)
+                        startActivity(i)
+                    }else{
+                        val i = Intent(this@MainActivity,Menuser::class.java)
+                        startActivity(i)
+                    }
                     Toast.makeText(this, "Bienvenido",
                         Toast.LENGTH_LONG)
                         .show()
-                    val i = Intent(this@MainActivity,Menu::class.java)
-                    startActivity(i)
+
                 }else{
                     Toast.makeText(this, "No se encontro al usuario",
                         Toast.LENGTH_LONG)

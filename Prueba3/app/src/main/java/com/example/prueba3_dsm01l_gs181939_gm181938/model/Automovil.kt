@@ -38,8 +38,16 @@ class Automovil  (context: Context){
                         + COL_NUMEROMOTOR + " varchar(45) NOT NULL,"
                         + COL_NUMEROASIENTOS + " integer NOT NULL,"
                         + COL_ANIO + " integer NOT NULL,"
+                        + COL_CAPACIDADASIENTOS + " integer NOT NULL,"
                         + COL_PRECIO + " decimal(10,2) NOT NULL,"
-                        + COL_DES + " varchar(45) NOT NULL"
+                        + COL_URLIMG + " varchar(45) NOT NULL,"
+                        + COL_DES + " varchar(45) NOT NULL,"
+                        + COL_IDMARCAS + " integer NOT NULL,"
+                        + COL_IDTIPOAUTO + " integer NOT NULL,"
+                        + COL_IDCOLORES + " integer NOT NULL,"
+                        + "FOREIGN KEY(idcolores) REFERENCES colores(idcolores),"
+                        + "FOREIGN KEY(idtipoautomovil) REFERENCES tipo_automovil(idtipoautomovil),"
+                        + "FOREIGN KEY(idmarcas) REFERENCES marcas(idmarcas));"
                 )
     }
     fun generarContentValues(modelo: String?, numerovin: String?, numerochasis: String?, numeromotor: String?, asientos: Int?, anio: Int?, precio: Double?, descripcion: String? ): ContentValues? {

@@ -12,6 +12,9 @@
         android:theme="@style/Theme.Prueba3_dsm01l_gs181939_gm181938"
         tools:targetApi="31">
         <activity
+            android:name=".Registro"
+            android:exported="false" />
+        <activity
             android:name=".Menuser"
             android:exported="false">
             <meta-data
